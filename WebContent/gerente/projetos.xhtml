@@ -1,0 +1,95 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<ui:define name="menu1">
+		<ui:include src="/WEB-INF/template/menuProfessor.xhtml" />
+	</ui:define>
+
+	<ui:define name="main1">
+
+		<span class="label label-default">
+			Clique em um projeto para visualizar opções
+		</span>
+		<div class="tabbable tabs-left">
+			<ul class="nav nav-tabs">
+				<ui:repeat var="equipe" value="#{equipeBean.equipes}">
+					<li><a href="#l#{equipe.id}" data-toggle="tab">
+							#{equipe.nome}</a></li>
+				</ui:repeat>
+			</ul>
+
+			<div class="tab-content">
+
+				<ui:repeat var="equipe" value="#{equipeBean.equipes}"
+					varStatus="status">
+					<div class="tab-pane" id="l#{equipe.id}">
+						<h:form>
+
+							<table class="table table-striped">
+
+								<tr>
+
+									<td><a href="#" onclick="dlg#{equipe.id}.show()">Participantes</a></td>
+									<td><h:commandButton class="btn btn-primary"
+											action="#{equipeBean.prepararParticipantes}"
+											value="Adicionar participantes">
+											<f:param name="idEquipe" value="#{equipe.id}" />
+											<f:param name="nomeEquipe" value="#{equipe.nome}" />
+										</h:commandButton></td>
+									<td><h:commandButton class="btn btn-primary"
+											action="#{equipeBean.removerEquipe}" value="Remover Projeto">
+											<f:param name="idEquipe" value="#{equipe.id}" />
+										</h:commandButton></td>
+								</tr>
+
+							</table>
+
+							<p:dialog header="Cadastro" widgetVar="dlg#{equipe.id}"
+								modal="true" width="500" resizable="false">
+
+								<p:dataTable value="#{equipe.alunos}" var="aluno"
+									emptyMessage="Sem participantes nesse projeto">
+									<p:column headerText="Nome">
+								#{aluno.nome}
+							</p:column>
+									<p:column headerText="Matrícula">
+								#{aluno.login}
+							</p:column>
+									<p:column headerText="E-mail">
+								#{aluno.email}
+							</p:column>
+								</p:dataTable>
+
+							</p:dialog>
+
+						</h:form>
+
+					</div>
+				</ui:repeat>
+			</div>
+		</div>
+
+		<hr />
+		<a href="#" onclick="dlg.show()">Adicionar Projeto</a>
+
+		<p:dialog header="Cadastro" widgetVar="dlg" modal="true" width="400"
+			resizable="false">
+			<h:form>
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Projeto" for="nome" />
+					<h:inputText value="#{equipeBean.equipe.nome}" id="nome" 
+					required="true" requiredMessage="Informe o nome do projeto" />
+				</h:panelGrid>
+				<h:commandButton class="btn btn-primary" value="Adicionar"
+					action="#{equipeBean.adicionaEquipe}" />
+			</h:form>
+		</p:dialog>
+
+	</ui:define>
+
+</ui:composition>

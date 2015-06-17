@@ -1,0 +1,60 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="menu1">
+		<ui:include src="/WEB-INF/template/menuProfessor.xhtml" />
+	</ui:define>
+
+	<ui:define name="main1">
+
+		<h:form>
+
+			<h:panelGrid columns="2">
+
+				<h:outputLabel value="Descrição" for="descricao" />
+				<h:inputTextarea value="#{perguntaFormBean.pergunta.descricao}"
+					id="descricao" required="true"
+					requiredMessage="Insira um valor para o campo descrição" />
+				<h:commandButton class="btn btn-primary"
+					action="#{perguntaFormBean.addPergunta}" value="Adicionar">
+					<f:param name="idForm" value="#{flash.formulario}" />
+				</h:commandButton>
+
+			</h:panelGrid>
+
+		</h:form>
+
+		<h:dataTable class="table table-striped"
+			emptyMessage="Sem perguntas cadastradas"
+			value="#{perguntaFormBean.perguntas}" var="pergunta">
+
+			<h:column>
+				<h:outputText value="#{pergunta.id}" />
+			</h:column>	
+
+			<h:column>
+				<h:outputText value="#{pergunta.descricao}" />
+			</h:column>
+
+		</h:dataTable>
+
+
+		<h:form>
+			<h:panelGrid columns="2">
+				<h:inputText value="#{perguntaFormBean.pergunta.id}" />
+
+				<h:commandButton class="btn btn-primary" value="Remover"
+					action="#{perguntaFormBean.removerPergunta}">
+					<f:param name="idForm" value="#{flash.formulario}"/>
+				</h:commandButton>
+			</h:panelGrid>
+		</h:form>
+
+	</ui:define>
+
+
+</ui:composition>

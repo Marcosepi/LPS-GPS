@@ -1,0 +1,15 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<ui:define name="menu1">
+		<ui:include src="/WEB-INF/template/menuProfessor.xhtml" />
+	</ui:define>
+	<ui:define name="main1">
+		<h1>Bem Vindo #{usuario.nome}!</h1>
+		<h3>Gestor de Projetos desenvolvido para a disciplina de Reúso de Software. Você está logado como gerente.</h3>
+	</ui:define>
+
+</ui:composition>

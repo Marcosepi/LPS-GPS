@@ -1,0 +1,111 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="menu1">
+		<ui:include src="/WEB-INF/template/menuProfessor.xhtml" />
+	</ui:define>
+	<ui:define name="main1">
+
+		<h:form>
+			<h3>Cadastro de Sprint</h3>
+			<hr />
+			<h:panelGrid columns="2">
+
+				<h:outputLabel value="Descrição" for="descricao" />
+				<h:inputText value="#{formularioBean.formulario.descricao}"
+					id="descricao" required="true" requiredMessage="Preencha o campo de descrição" />
+
+				<h:outputLabel value="Data Início" for="data-inicio" />
+				<p:calendar value="#{formularioBean.formulario.dataInicio}" 
+					locale="pt_BR" showButtonPanel="true" navigator="true"
+					id="data-inicio" required="true" requiredMessage="Preencha o campo de data inicial"  />
+
+				<h:outputLabel value="Data Fim" for="data-fim" />
+				<p:calendar value="#{formularioBean.formulario.dataFim}" 
+					locale="pt_BR" showButtonPanel="true" navigator="true"
+					id="data-fim" required="true" requiredMessage="Preencha o campo de data final"  />
+
+				<h:commandButton  class="btn btn-primary" value="Salvar"
+					action="#{formularioBean.addFormulario}" />
+
+			</h:panelGrid>
+
+
+		</h:form>
+
+		<hr />
+		<h:form>
+			<h:dataTable class="table table-striped" id="table-form" value="#{formularioBean.formularios}" var="form" emptyMessage="Nenhum Formulário">
+				<h:column>
+					 <f:facet name="header">Descrição</f:facet>
+						<h:commandLink value="#{form.descricao}" action="#{formularioBean.carregaFormulario}" >
+							<f:param name="idForm" value="#{form.id}" />
+						</h:commandLink>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Início</f:facet>
+					<h:outputText value="#{form.dataInicio}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Fim</f:facet>
+					<h:outputText value="#{form.dataFim}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Remover</f:facet>
+					<h:commandButton onclick="return confirm('Confirmação de Exclusão, verifique se o formulário não está sendo utilizado')" 
+					class="btn btn-primary" value="OK" action="#{formularioBean.removerFormulario}">
+						<f:param value="#{form.id}" name="idForm" />
+					</h:commandButton>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Adicionar Tarefas</f:facet>
+					<h:commandButton disabled="#{form.statusForm}" class="btn btn-primary" value="Adicionar" action="#{perguntaFormBean.prepararPerguntas}">
+						<f:param value="#{form.id}" name="idForm" />
+					</h:commandButton>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Comentários</f:facet>
+					<h:commandButton disabled="#{!form.statusForm}" class="btn btn-primary" value="Adicionar" action="#{formularioBean.prepararRespostas}">
+						<f:param value="#{form.id}" name="idForm" />
+					</h:commandButton>
+				</h:column>
+<!-- 				<h:column> -->
+<!-- 					<f:facet name="header">Relatórios</f:facet> -->
+<!-- 					<a href="#" onclick="relatorio#{form.id}.show()" >Relatórios</a>					 -->
+<!-- 					<p:dialog header="Relatórios #{form.descricao}" widgetVar="relatorio#{form.id}" -->
+<!-- 								modal="true" width="650" resizable="false"> -->
+<!-- 							<span class="label label-default"> -->
+<!-- 							#{!form.statusForm?'Formulário ainda está aberto e os links estão desabilitados':''}	 -->
+<!-- 							</span> -->
+<!-- 							<h:panelGrid columns="3"> -->
+<!-- 								<h:commandLink disabled="#{!form.statusForm}" target="_blank"  -->
+<!-- 								class="btn btn-primary" value="Cálculo dos pontos" action="#{formularioBean.calcularPontos}"> -->
+<!-- 									<f:param value="#{form.id}" name="idForm" /> -->
+<!-- 								</h:commandLink> -->
+<!-- 								<h:commandLink disabled="#{!form.statusForm}" target="_blank" class="btn btn-primary" value="Melhores Equipes"  -->
+<!-- 								action="#{formularioBean.relatorioMelhoresEquipes}"> -->
+<!-- 									<f:param value="#{form.id}" name="idForm" /> -->
+<!-- 								</h:commandLink> -->
+<!-- 								<h:commandLink disabled="#{!form.statusForm}" target="_blank" class="btn btn-primary" value="Melhores apostadores"  -->
+<!-- 								action="#{formularioBean.relatorioMelhoresApostadores}"> -->
+<!-- 									<f:param value="#{form.id}" name="idForm" /> -->
+<!-- 								</h:commandLink> -->
+<!-- 							</h:panelGrid> -->
+					
+					
+<!-- 					</p:dialog> -->
+<!-- 				</h:column>			 -->
+
+			</h:dataTable>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

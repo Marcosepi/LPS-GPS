@@ -1,0 +1,63 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="menu1">
+		<ui:include src="/WEB-INF/template/menuAluno.xhtml" />
+	</ui:define>
+
+	<ui:define name="main1">
+
+		<h2>Editar perfil</h2>
+		<h:form>
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Matrícula" for="login" />
+				<h:inputText class="form-control" value="#{alunoBean.aluno.login}"
+					id="login" disabled="true" />
+				<h:outputLabel value="Nome" for="nome" />
+				<h:inputText class="form-control" value="#{alunoBean.aluno.nome}"
+					id="nome" required="true"
+					requiredMessage="O campo nome deve ser preenchido" />
+				<h:outputLabel value="E-mail" for="email" />
+				<h:inputText class="form-control" value="#{alunoBean.aluno.email}"
+					id="email" required="true"
+					requiredMessage="O campo e-mail deve ser preenchido" />
+			</h:panelGrid>
+			<h:inputHidden value="#{alunoBean.aluno.login}" />
+			<h:panelGrid columns="2">
+				<h:commandButton class="btn btn-primary" value="Editar"
+					action="#{alunoBean.alterarDados}" />
+				<a style="padding: 3px;" href="#" onclick="dlg.show()">Alterar
+					Senha</a>
+			</h:panelGrid>
+		</h:form>
+
+		<p:dialog header="Alterar Senha" widgetVar="dlg" modal="true"
+			width="450" resizable="false">
+			<h:form>
+				<h:panelGrid columns="2">
+
+					<h:outputLabel value="Senha antiga" for="senha_antiga" />
+					<p:password value="#{alunoBean.aluno.senha}" id="senha_antiga"
+					 required="true" requiredMessage="Preencha do campo Senha Antiga" />
+					<h:outputLabel value="Nova Senha" for="senha_nova" />
+					<p:password match="pwd2" value="#{alunoBean.novaSenha}"
+						id="senha_nova" required="true" 
+						requiredMessage="Preencha do campo Nova Senha"
+						validatorMessage="Senhas inválidas" />
+					<h:outputLabel for="pwd2" value="Confirmação de senha" />
+					<p:password id="pwd2" value="#{alunoBean.novaSenha}"
+						label="Confirmação de Senha" required="true" 
+						requiredMessage="Preencha do campo Confirmação de Senha" />
+				</h:panelGrid>
+				<h:commandButton class="btn btn-primary" value="Confimar"
+					onclick="return:confirm('Confirmação')"
+					action="#{alunoBean.alterarSenha}" />
+			</h:form>
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>

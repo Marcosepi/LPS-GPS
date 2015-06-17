@@ -1,0 +1,94 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+	<ui:define name="menu1">
+		<ui:include src="/WEB-INF/template/menuProfessor.xhtml" />
+	</ui:define>
+
+	<ui:define name="main1">
+		<h3 style="margin-left: 0px; margin-top: 0px;">#{param.nome_equipe}</h3>
+		<span class="label label-default"> Clique em uma pergunta para
+			abrir as opções </span>
+		<h:form>
+
+			<div class="tabbable tabs-left">
+				<ul class="nav nav-tabs">
+					<ui:repeat var="resposta" value="#{questionarioBean.respostas}"
+						varStatus="status">
+						<li><a href="#l#{resposta.id}" data-toggle="tab">
+								Pergunta #{status.index + 1}</a></li>
+					</ui:repeat>
+				</ul>
+
+				<div class="tab-content">
+
+					<ui:repeat var="resposta" value="#{questionarioBean.respostas}"
+						varStatus="status">
+						<div class="tab-pane" id="l#{resposta.id}">
+
+							<h3>
+								<h:outputText value="#{resposta.pergunta.descricao}" />
+							</h3>
+							<p:selectOneRadio rendered="#{resposta.pergunta.id == 8}"
+								id="options1" value="#{resposta.resposta}" layout="grid">
+								<f:selectItem itemLabel="#{respostas.opcao_1}" itemValue="1" />
+								<f:selectItem itemLabel="#{respostas.opcao_2}" itemValue="2" />
+								<f:selectItem itemLabel="#{respostas.opcao_3}" itemValue="3" />
+								<f:selectItem itemLabel="#{respostas.opcao_4}" itemValue="4" />
+							</p:selectOneRadio>
+							<p:selectOneRadio rendered="#{resposta.pergunta.id == 10}"
+								id="options2" value="#{resposta.resposta}" layout="grid">
+								<f:selectItem itemLabel="#{respostas.opcao_1}" itemValue="1" />
+								<f:selectItem itemLabel="#{respostas.opcao_2}" itemValue="2" />
+								<f:selectItem itemLabel="#{respostas.opcao_3}" itemValue="3" />
+								<f:selectItem itemLabel="#{respostas.opcao_4}" itemValue="4" />
+							</p:selectOneRadio>
+							<p:selectOneRadio
+								rendered="#{resposta.pergunta.id == 7 or resposta.pergunta.id == 9}"
+								id="options3" value="#{resposta.resposta}" layout="grid">
+								<f:selectItem itemLabel="#{respostas.opcao_1}" itemValue="1" />
+								<f:selectItem itemLabel="#{respostas.opcao_2}" itemValue="2" />
+								<f:selectItem itemLabel="#{respostas.opcao_3}" itemValue="3" />
+								<f:selectItem itemLabel="#{respostas.opcao_4}" itemValue="4" />
+							</p:selectOneRadio>
+							<p:selectOneRadio
+								rendered="#{resposta.pergunta.id == 11}"
+								id="options4" value="#{resposta.resposta}" layout="grid">
+								<f:selectItem itemLabel="#{respostas.opcao_1}" itemValue="1" />
+								<f:selectItem itemLabel="#{respostas.opcao_2}" itemValue="2" />
+								<f:selectItem itemLabel="#{respostas.opcao_3}" itemValue="3" />
+								<f:selectItem itemLabel="#{respostas.opcao_4}" itemValue="4" />
+							</p:selectOneRadio>
+							<p:selectOneRadio
+								rendered="#{resposta.pergunta.id > 11}"
+								id="options5" value="#{resposta.resposta}" layout="grid">
+								<f:selectItem itemLabel="#{respostas.opcao_1}" itemValue="1" />
+								<f:selectItem itemLabel="#{respostas.opcao_2}" itemValue="2" />
+								<f:selectItem itemLabel="#{respostas.opcao_3}" itemValue="3" />
+								<f:selectItem itemLabel="#{respostas.opcao_4}" itemValue="4" />
+							</p:selectOneRadio>	
+
+						</div>
+					</ui:repeat>
+				</div>
+			</div>
+
+
+			<h:commandButton class="btn btn-primary" value="Salvar"
+				onclick="return confirm('Confirmação')"
+				action="#{questionarioBean.addResposta}">
+
+				<f:param value="#{flash.form}" name="formulario" />
+
+			</h:commandButton>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

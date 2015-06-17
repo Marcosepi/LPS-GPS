@@ -1,0 +1,22 @@
+
+<ui:composition xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<div class="nav-body2">
+		<h:form>
+			<ul class="nav nav-pills nav-stacked">
+				<li class="active"><h:link value="Home"
+						outcome="/gerente/home" /></li>
+				<li><h:link value="Editar Perfil"
+						outcome="/gerente/editPerfil" /></li>
+				<li><h:link value="Cadastrar Projetos"
+						outcome="/gerente/projetos" /></li>
+				<li><h:link value="Cadastrar Sprint"
+						outcome="/gerente/formulario" /></li>
+				<li><h:commandLink value="Sair"
+						action="#{loginBean.realizarLogout}" /></li>
+
+			</ul>
+		</h:form>
+	</div>
+</ui:composition>

@@ -1,0 +1,95 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<ui:define name="menu1">
+		<ui:include src="/WEB-INF/template/menuAluno.xhtml" />
+	</ui:define>
+
+	<ui:define name="main1">
+		<h3 style="margin-left: 0px; margin-top: 0px;">Meus projetos</h3>
+		<span class="label label-default">
+			Clique em um projeto para visualizar opções
+		</span>	
+		<div class="tabbable tabs-left">
+			<ul class="nav nav-tabs">
+				<ui:repeat var="equipe" value="#{equipeBean.equipes}">
+					<li><a href="#l#{equipe.id}" data-toggle="tab">
+							#{equipe.nome}</a></li>
+				</ui:repeat>
+			</ul>
+
+			<div class="tab-content">
+
+				<ui:repeat var="equipe" value="#{equipeBean.equipes}"
+					varStatus="status">
+					<div class="tab-pane" id="l#{equipe.id}">
+						<h:form>
+
+							<table class="table table-striped">
+
+								<tr>
+
+									<td><a href="#" onclick="dlg#{equipe.id}.show()">Participantes</a></td>
+									<td><a href="#" >Visualizar tarefas</a></td>
+								</tr>
+
+							</table>
+
+						</h:form>
+
+
+						<p:dialog header="Participantes" widgetVar="dlg#{equipe.id}"
+							modal="true" width="500" resizable="false">
+
+							<p:dataTable value="#{equipe.alunos}" var="aluno"
+								emptyMessage="Sem alunos nessa equipe">
+								<p:column headerText="Nome">
+								#{aluno.nome}
+							</p:column>
+								<p:column headerText="Matrícula">
+								#{aluno.login}
+							</p:column>
+								<p:column headerText="E-mail">
+								#{aluno.email}
+							</p:column>
+							</p:dataTable>
+
+						</p:dialog>
+						
+					</div>
+				</ui:repeat>
+			</div>
+		</div>
+
+		<h:dataTable value="#{equipeBean.equipes}"
+			var="equipe">
+			<h:column>
+				<p:dialog header="Aposta - #{equipe.nome}"
+						widgetVar="dlg2#{equipe.id}" modal="true" width="400"
+						resizable="false">
+						<h:form>
+							<h:panelGrid columns="3">
+								R$
+								<h:inputText style="width:80px; height:30px" id="valor"
+									value="#{apostaBean.aposta.valor}">
+									<f:convertNumber locale="pt_BR" />
+								</h:inputText>
+								<h:commandButton class="btn btn-primary" value="Confirmar"
+									action="#{apostaBean.realizarAposta}">
+									<f:param name="id_equipe" value="#{equipe.id}" />
+								</h:commandButton>
+
+							</h:panelGrid>
+						</h:form>
+					</p:dialog>
+			</h:column>
+		</h:dataTable>
+
+
+	</ui:define>
+</ui:composition>

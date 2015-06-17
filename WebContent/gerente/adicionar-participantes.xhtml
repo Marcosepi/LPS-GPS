@@ -1,0 +1,45 @@
+<ui:composition template="/WEB-INF/template/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<ui:define name="menu1">
+		<ui:include src="/WEB-INF/template/menuProfessor.xhtml" />
+	</ui:define>
+
+	<ui:define name="main1">
+
+		<h3>Adicionar participantes em equipes</h3>
+		<hr />
+		<h:form>
+			<div class="hero-unit">
+				<p:selectManyCheckbox id="alunos" converter="alunoConverter"
+					value="#{equipeBean.equipe.alunos}" layout="grid" columns="3"
+					var="a">
+					<f:selectItems value="#{equipeBean.alunosSemEquipe}" var="aluno"
+						itemLabel="#{aluno.nome}" itemValue="#{aluno}">
+					</f:selectItems>
+					<p:column>
+					#{a.nome}
+					</p:column>
+				</p:selectManyCheckbox>
+			</div>
+			<h:inputHidden value="#{equipeBean.equipe.id}" />
+			<h:inputHidden value="#{equipeBean.equipe.nome}" />
+			<hr />
+
+			<h:commandButton class="btn btn-primary"
+				action="#{equipeBean.adicionaParticipante}" value="Salvar" />
+
+		</h:form>
+
+	</ui:define>
+
+
+
+
+
+</ui:composition>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<body>
+
+	<div class="nav-body2">
+		<h:form>
+			<ul class="nav nav-pills nav-stacked">
+				<li class="active"><h:link value="Home" outcome="/aluno/home" /></li>
+				<li><h:link value="Editar Perfil" outcome="/aluno/editPerfil" /></li>
+				<li><h:link value="Meus projetos"
+						outcome="/dev/projetos" /></li>
+				<li><h:commandLink value="Sair"
+						action="#{loginBean.realizarLogout}" /></li>
+
+			</ul>
+		</h:form>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html class="no-js" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<ui:insert name="title">
+		<title>Gestor de Projetos</title>
+	</ui:insert>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<h:outputStylesheet library="css" name="bootstrap.css"></h:outputStylesheet>
+	<h:outputStylesheet name="bootstrap-responsive.min.css" library="css"></h:outputStylesheet>
+	<h:outputStylesheet name="main.css" library="css"></h:outputStylesheet>
+	
+	<link rel="shortcut icon"
+		href="#{facesContext.externalContext.requestContextPath}/resources/icon.ico"></link>
+</h:head>
+
+<h:body>
+	<div class="layout">
+		<!-- Header -->
+		<ui:insert name="header">
+			<ui:include src="/WEB-INF/template/header.xhtml" />
+		</ui:insert>
+
+		<ui:insert name="notifications">
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				closable="false" />
+		</ui:insert>
+
+		<!-- Main -->
+		<div class="main">
+			<div class="container">
+				<div class="row">
+					<div class="span3">
+						<div class="nav-body">
+							<ui:insert name="information">
+							</ui:insert>
+						</div>
+						<ui:insert name="menu1">
+						</ui:insert>
+					</div>
+					<div class="span8">
+						<div class="content">
+							<ui:insert name="main1">
+							</ui:insert>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Main -->
+		<!-- Footer -->
+		<ui:insert name="footer">
+			<ui:include src="/WEB-INF/template/footer.xhtml" />
+		</ui:insert>
+		<!-- End Footer -->
+	</div>
+
+	<h:outputScript name="bootstrap.js" library="js/vendor" />
+
+</h:body>
+
+</html>
