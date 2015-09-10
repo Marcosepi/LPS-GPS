@@ -94,7 +94,6 @@ public class TarefaBean {
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
 		flash.put("formulario", Integer.parseInt(request.getParameter("idForm")));
-	
 		
 		TarefaDao dao = new TarefaJPADao();
 		this.pergunta = dao.find(this.pergunta.getId());
